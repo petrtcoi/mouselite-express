@@ -1,0 +1,58 @@
+{
+  "name": "cloud_mouselite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist  && tsc && cp ./src/config/* ./dist/config/.",
+    "predev": "npm run build",
+    "dev": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "pretest": "rimraf dist",
+    "test": "cross-env NODE_ENV=test concurrently \"npx tsc\" \"jest --runInBand\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.13",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^17.0.23",
+    "@types/twilio": "^3.19.3",
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "csv-string": "^4.1.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^6.2.9",
+    "rimraf": "^3.0.2",
+    "twilio": "^3.76.0",
+    "typescript": "^4.6.3",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/cors": "^2.8.12",
+    "@types/jest": "^27.4.1",
+    "@types/supertest": "^2.0.12",
+    "@types/xml2js": "^0.4.9",
+    "babel-jest": "^27.5.1",
+    "concurrently": "^7.0.0",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "ts-jest": "^27.1.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

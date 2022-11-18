@@ -1,0 +1,1 @@
+export type AtolClient = { email?: string, phone?: string }
