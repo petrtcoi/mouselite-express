@@ -36,6 +36,7 @@ mongoose.connect(mongoDbUrl, {
     autoIndex: false
 })
 mongoose.connection.once('open', () => {
+    console.log('connected')
     app.emit('ready')
 })
 

@@ -20,7 +20,7 @@ const updateDb = async (_req: Request, res: Response): Promise<void> => {
     const csvConnections = await googleSheetRead(GOOGLE_DOC_ID_CONNECTIONS) as TubogCsvConnectionType[]
 
     await TubogModel.deleteMany()
-    await TubogConnection.deleteMany
+    await TubogConnection.deleteMany()
 
     let modelsCount = 0
     let connectionsCount = 0
