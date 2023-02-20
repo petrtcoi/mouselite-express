@@ -301,6 +301,10 @@ router.get('/omoikiri/sku/:sku',
 router.post('/integromat/',
     supplierEmailFuncs.addData
 );
+router.get('/integromat/',
+    authAllUsers,
+    supplierEmailFuncs.getByOrderId
+);
 
 
 

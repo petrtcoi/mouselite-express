@@ -6,6 +6,11 @@ import { setMainInfo } from "./utils/setMainInfo";
 
 const addData = async (req: Request, res: Response): Promise<void> => {
 
+    if (!req.body.SECRET_KEY || req.body.SECRET_KEY !== 'some_secret_key') {
+        res.status(401).send('Unauthorized');
+        return;
+    }
+
     try {
         const { emailId, text, subject, emailTo, emailFrom, attachments } = req.body;
         if (!emailId) {
