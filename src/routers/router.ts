@@ -302,11 +302,11 @@ router.post('/supplieremails/',
     supplierEmailFuncs.addData
 );
 router.get('/supplieremails/:orderId',
-    // authAllUsers,
+    authAllUsers,
     supplierEmailFuncs.getByOrderId
 );
 router.get('/supplieremails/',
-    // authAllUsers,
+    authAllUsers,
     supplierEmailFuncs.getByOrderIdsList
 );
 
