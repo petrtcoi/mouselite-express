@@ -5,9 +5,10 @@ import SupplierEmail from "../../models/supplierEmail";
 
 const getByOrderId = async (req: Request, res: Response): Promise<void> => {
 
+
   try {
     const emails = await SupplierEmail
-      .find({ orderId: req.query.orderId })
+      .find({ orderId: req.params.orderId })
       .lean();
     res.status(200).send(emails);
     return;

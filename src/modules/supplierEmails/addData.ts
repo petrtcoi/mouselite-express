@@ -13,27 +13,33 @@ const addData = async (req: Request, res: Response): Promise<void> => {
 
     try {
         const { emailId, text, subject, emailTo, emailFrom, attachments } = req.body;
+
         if (!emailId) {
             res.status(400).send({ error: 'no Email ID' });
             return;
         }
-
         const checkEmail = await checkSupplierEmail(emailId);
         if (!checkEmail) {
-            res.status(500).send({ ok: true });
+            res.status(500).send({ ok: false });
             return;
         }
-        if (emailId && text && subject && emailTo && emailFrom) {
-            await setMainInfo({ emailId, text, subject, emailTo, emailFrom });
+
+
+        if (!emailId || !text || !subject || !emailTo || !emailFrom) {
+            res.status(500).send({ ok: false });
+            return;
         }
+
+        const addInfoResult = await setMainInfo({ emailId, text, subject, emailTo, emailFrom });
+        if (!addInfoResult) {
+            console.log('addInfoResult: ', addInfoResult);
+            res.status(500).send({ ok: false });
+            return;
+        }
+
         if (attachments) {
             await setAttachments({ emailId, attachments });
         }
-
-
-
-
-
 
         res.status(200).send({ ok: true });
         return;

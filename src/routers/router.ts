@@ -25,7 +25,7 @@ import moyskladFunc from '../modules/moysklad';
 import webasystFunc from '../modules/webasyst';
 import tubogFunc from '../modules/tubogshop';
 import omoikiriFunc from '../modules/omoikiri';
-import supplierEmailFuncs from '../modules/integromat';
+import supplierEmailFuncs from '../modules/supplierEmails';
 
 
 const router = express.Router();
@@ -298,13 +298,18 @@ router.get('/omoikiri/sku/:sku',
 );
 
 
-router.post('/integromat/',
+router.post('/supplieremails/',
     supplierEmailFuncs.addData
 );
-router.get('/integromat/',
-    authAllUsers,
+router.get('/supplieremails/:orderId',
+    // authAllUsers,
     supplierEmailFuncs.getByOrderId
 );
+router.get('/supplieremails/',
+    // authAllUsers,
+    supplierEmailFuncs.getByOrderIdsList
+);
+
 
 
 

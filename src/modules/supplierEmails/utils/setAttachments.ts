@@ -5,7 +5,6 @@ export async function setAttachments(props: {
   attachments: SupplierEmailType['attachments'],
 }): Promise<boolean> {
 
-  console.log(props);
   try {
     await SupplierEmail.updateOne(
       { emailId: props.emailId },
