@@ -17,13 +17,13 @@ const itemsListFromRooms = (rooms: RoomType[]): RoomItem[] => {
                 if (x.model) {
                     return (
                         // @ts-ignore
-                        (x.model.toString() || 'none') === (item.model?.toString() || 'none') &&
+                        (x.model?.toString() || 'none') === (item.model?.toString() || 'none') &&
                         // @ts-ignore
-                        (x.color.toString() || 'none') === (item.color?.toString() || 'none') &&
+                        (x.color?.toString() || 'none') === (item.color?.toString() || 'none') &&
                         // @ts-ignore
-                        (x.connection.toString() || 'none') === (item.connection?.toString() || 'none') &&
+                        (x.connection?.toString() || 'none') === (item.connection?.toString() || 'none') &&
                         // @ts-ignore
-                        (x.sections.toString() || 'none') === (item.sections?.toString() || 'none')
+                        (x.sections?.toString() || 'none') === (item.sections?.toString() || 'none')
                     )
                 }
             })
