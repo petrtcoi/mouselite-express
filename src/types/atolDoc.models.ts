@@ -1,4 +1,4 @@
-import { mouseliteDoc } from "../config/atol.config"
+import {mouseliteConfig} from "../config/atol.config"
 import { AtolPaymentMethod, AtolPaymentObject, AtolPayments } from "./atol.models"
 import { AtolClient } from "./atolClient.models"
 
@@ -19,7 +19,7 @@ export type AtolDoc = {
     external_id: string
     receipt: {
         client: AtolClient
-        company: typeof mouseliteDoc
+        company: typeof mouseliteConfig.companyDoc
         items: AtolDocItem[],
         payments: AtolPayments
         total: number

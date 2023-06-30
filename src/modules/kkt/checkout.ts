@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import mongoose from "mongoose"
 import moment from 'moment-timezone'
 import AtolUuid from '../../models/atolUuid'
-import atolConfig, { mouseliteDoc } from "../../config/atol.config"
+import getAtolConfigs, {type Company} from "../../config/atol.config"
 
 import atolGetToken from "./utils/atolGetToken"
 import moySkladCreatePayment from "./../moysklad/utils/moyskladCreatePaymnet"
@@ -18,13 +18,22 @@ import { AtolDoc } from "../../types/atolDoc.models"
 
 
 type Body = {
+    company: Company
     orderName: string
     client: AtolClient
     receipt: AtolReceipt
 }
 
 const checkout = async (req: Request, res: Response) => {
-    const { orderName, client, receipt }: Body = req.body
+    const { orderName, client, receipt, company }: Body = req.body
+    // console.log({ orderName, client, receipt, company })
+
+    const {atolConfig, companyDoc} = getAtolConfigs(company)
+
+    if (!company || (company !== 'mouselite' && company !== 'homekomfort')) {
+        res.status(400).send('no company or wrong company')
+        return
+    }
 
     const cash = (receipt.payments.find(x => x.type === 0) || {sum: -1}).sum 
     const bank = (receipt.payments.find(x => x.type === 1) || {sum: -1}).sum 
@@ -38,7 +47,7 @@ const checkout = async (req: Request, res: Response) => {
         return
     }
     if (receipt.type !== 'paymentOnly' && receipt.type !== 'withDelivery') {
-        res.status(400).send('Не правильныы reciept.type')
+        res.status(400).send('Неправильный receipt.type')
         return
     }
 
@@ -48,7 +57,7 @@ const checkout = async (req: Request, res: Response) => {
     }
 
 
-    const { token: atolToken } = await atolGetToken()
+    const { token: atolToken } = await atolGetToken(company)
     if (!atolToken) {
         res.status(500).send('cant get atol token')
         return
@@ -76,7 +85,7 @@ const checkout = async (req: Request, res: Response) => {
         timestamp,
         receipt: {
             client,
-            company: mouseliteDoc,
+            company: companyDoc,
             items: receipt.items.map(item => { return { ...item, vat: { type: "none" } } }),
             payments: receipt.payments,
             total: receipt.total

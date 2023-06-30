@@ -1,16 +1,20 @@
 import Credential from '../../../models/credential.models'
-import atolConfig from '../../../config/atol.config'
+import getAtolConfigs, {type Company} from '../../../config/atol.config'
 import atolGetDocInfo from './atolGetDocInfo'
 import atolHttp from './atolHttp'
 
 
-const atolGetToken = async (): Promise<{ token?: string, error?: boolean }> => {
+const atolGetToken = async (company: Company): Promise<{ token?: string, error?: boolean }> => {
 
-    const doc = await Credential.findOne({ key: 'atolToken' })
+    const {atolConfig} = getAtolConfigs(company)
+
+    const doc = company === 'homekomfort'
+    ? await Credential.findOne({ key: 'atolTokenHomeKomfort' })
+    : await Credential.findOne({ key: 'atolToken' })
 
 
     const validatedToken: boolean = !doc ? false
-        : (await atolGetDocInfo({ token: doc.value, uuid: atolConfig.some_uuid })).error ? false : true
+        : (await atolGetDocInfo({ token: doc.value, uuid: atolConfig.some_uuid, company })).error ? false : true
     if (validatedToken && doc) return { token: doc.value }
 
 
