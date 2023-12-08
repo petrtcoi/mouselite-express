@@ -67,9 +67,10 @@ const getRoomItemPriceX100 = async (props: Props): Promise<number> => {
     }
 
     if (dbColor?.priceSection) {
-      price =
-        price +
-        dbColor.priceSection * colorCurrencyRate * +(props.item.sections || 0);
+      const calcSections =
+        props.item.sections || (dbItem as any)?.sections || 0;
+
+      price = price + dbColor.priceSection * colorCurrencyRate * calcSections;
     }
 
     if (dbColor?.rateBase) {
