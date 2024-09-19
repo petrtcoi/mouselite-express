@@ -27,7 +27,6 @@ const updateSiteDB = async (_req: Request, res: Response) => {
 			conn_bottom_left_tv: general.conn_bottom_left_tv ? +general.conn_bottom_left_tv : null,
 			conn_bottom_center: general.conn_bottom_center ? +general.conn_bottom_center : null,
 			conn_bottom_double_sided: general.conn_bottom_double_sided ? +general.conn_bottom_double_sided : null,
-			conn_bottom_double_sided_tv: general.conn_bottom_double_sided_tv ? +general.conn_bottom_double_sided_tv : null,
 
 			montage_wall: general.montage_wall ? +general.montage_wall : null,
 			montage_floor: general.montage_floor ? +general.montage_floor : null,
