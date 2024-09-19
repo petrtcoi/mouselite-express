@@ -10,6 +10,7 @@ export type KradModelType = {
 	conn_bottom_left_tv: number | null
 	conn_bottom_center: number | null
 	conn_bottom_double_sided: number | null
+	conn_bottom_double_sided_tv: number | null
 	montage_wall: number | null
 	montage_floor: number | null
 }
