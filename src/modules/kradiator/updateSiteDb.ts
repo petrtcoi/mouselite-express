@@ -8,7 +8,11 @@ import { KradSiteCsvRadiator } from './typescript/types/kradSiteCsvRadiator.type
 const GENERAL_DOC_ID = 'd/1P4VKpzbo_a4Hkz0gSUbOcdkaF09FmhkOMpxrmKjoqhw/'
 
 const updateSiteDB = async (_req: Request, res: Response) => {
+	console.log('START')
+
 	const generalCsv: KradSiteCsvModel[] = (await googleSheetRead(GENERAL_DOC_ID)) as KradSiteCsvModel[]
+
+	console.log('GET generalCsv')
 
 	const generalData: KradSiteModelType[] = generalCsv.map(general => {
 		return {
@@ -49,14 +53,20 @@ const updateSiteDB = async (_req: Request, res: Response) => {
 		}
 	})
 
+	console.log('GET generalData')
+
 	await KradSiteModel.deleteMany({})
 	await KradSiteRadiator.deleteMany({})
 
 	for (const model of generalData) {
+		console.log('newModel', model.name)
+
 		const newModel = new KradSiteModel(model)
 		await newModel.save()
 
 		const csvRadiators = (await googleSheetRead(`d/${model.doc_id}/`)) as KradSiteCsvRadiator[]
+
+		console.log('GET csvRadiators', model.doc_id)
 
 		try {
 			for (const csv of csvRadiators) {

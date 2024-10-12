@@ -53,6 +53,8 @@ const schema = new mongoose.Schema<KradSiteModelType>(
 		conn_lateral: { type: Number, required: false },
 		conn_bottom_right: { type: Number, required: false },
 		conn_bottom_left: { type: Number, required: false },
+		conn_bottom_right_tv: { type: Number, required: false },
+		conn_bottom_left_tv: { type: Number, required: false },
 		conn_bottom_center: { type: Number, required: false },
 		conn_bottom_double_sided: { type: Number, required: false },
 
