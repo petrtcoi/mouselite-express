@@ -85,7 +85,7 @@ const schema = new mongoose.Schema<KradSiteModelType>(
 
 schema.virtual('radiators', {
 	ref: KradSiteRadiator,
-	localField: 'id',
+	localField: 'name',
 	foreignField: 'modelId',
 })
 
